@@ -9,6 +9,8 @@ public class GridUIController : MonoBehaviour
     [SerializeField] private TMP_InputField _widthInputField;
     [SerializeField] private TMP_InputField _heightInputField;
 
+    private DebugMessages DebugMessages => ServiceLocator.Instance.DebugMessages;
+
     public void OnGenerateButton()
     {
         int width = 0;
@@ -16,11 +18,13 @@ public class GridUIController : MonoBehaviour
         if(_widthInputField.text == "" || _heightInputField.text == "")
         {
             Debug.LogWarning("GridUIController.OnGenerateButton: Enter Something");
+            DebugMessages.TryShowMessage("Please, fill both fields");
             return;
         }
         if(_widthInputField.text.IsNumber(out width) == false || _heightInputField.text.IsNumber(out height) == false)
         {
             Debug.LogWarning("GridUIController.OnGenerateButton: Enter Only Numbers");
+            DebugMessages.TryShowMessage("Please, enter only numbers");
             return;
         }
 

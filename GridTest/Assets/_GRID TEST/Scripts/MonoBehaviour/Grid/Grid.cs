@@ -14,6 +14,7 @@ public class Grid : MonoBehaviour
     private float Height => _rectTransform.rect.height;
     public List<Slot> Slots {get; private set;}
     bool IsEmpty => Slots.Count == 0;
+    private DebugMessages DebugMessages => ServiceLocator.Instance.DebugMessages;
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class Grid : MonoBehaviour
         }
 
         Debug.LogWarning($"Grid Generated");
+        DebugMessages.TryShowMessage($"Grid {width}x{height} generated");
     }
 
     public void TryShuffle()
@@ -50,12 +52,14 @@ public class Grid : MonoBehaviour
         if(IsEmpty)
         {
             Debug.LogWarning($"Grid.TryShuffle: Grid Is Empty");
+            DebugMessages.TryShowMessage("Grid is empty. Generate it");
             return;
         }
 
         if(Slots.Find(slot => slot.IsEmpty == false && slot.Item.IsTransiting) != null)
         {
             Debug.Log("Grid.TryShuffle: Transition is not completed");
+            DebugMessages.TryShowMessage("Grid is already shuffling");
             return;
         }
 
@@ -74,6 +78,7 @@ public class Grid : MonoBehaviour
             item.TransitToSlot(randomSlot);
         }
         
+        DebugMessages.TryShowMessage("Shuffling...");
     }
 
     public void TryReset()

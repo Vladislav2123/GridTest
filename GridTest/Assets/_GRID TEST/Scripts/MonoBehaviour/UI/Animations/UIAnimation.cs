@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Все анимации длал бы с помощью DoTween, но его нельзя использовать
+
 public abstract class UIAnimation : MonoBehaviour
 {
     [SerializeField] protected float _animationDuration;
