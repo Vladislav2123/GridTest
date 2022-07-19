@@ -56,6 +56,12 @@ public class Grid : MonoBehaviour
             return;
         }
 
+        if(Slots.Count == 1)
+        {
+            DebugMessages.TryShowMessage("There is only one item");
+            return;
+        }
+
         if(Slots.Find(slot => slot.IsEmpty == false && slot.Item.IsTransiting) != null)
         {
             Debug.Log("Grid.TryShuffle: Transition is not completed");
@@ -73,6 +79,12 @@ public class Grid : MonoBehaviour
         foreach(SlotItem item in slotsItems)
         {
             List<Slot> availableSlots = Slots.FindAll(slot => item.Slot != slot && slot.IsEmpty);
+            if(availableSlots.Count == 0)
+            {
+                Slot emptySlot = Slots.Find(slot => slot.IsEmpty);
+                item.TransitToSlot(emptySlot);
+                continue;
+            }
             int randomSlotIndex = Random.Range(0, availableSlots.Count);
             Slot randomSlot = availableSlots[randomSlotIndex];
             item.TransitToSlot(randomSlot);
