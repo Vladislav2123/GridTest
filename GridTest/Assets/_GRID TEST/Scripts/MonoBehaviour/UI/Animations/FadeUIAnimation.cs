@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class DisappearUIAnimation : UIAnimation
+public class FadeUIAnimation : UIAnimation
 {
     [SerializeField] private CanvasGroup _animatingGroup;
+    [SerializeField] [Range (0, 1)] private float _targetFade;
+
     public override void PlayAnimation()
     {
         TryStopPlayingAnimation();
@@ -17,13 +19,13 @@ public class DisappearUIAnimation : UIAnimation
 
         while(t <= 1)
         {
-            _animatingGroup.alpha = Mathf.Lerp(originAlpha, 0, t);
+            _animatingGroup.alpha = Mathf.Lerp(originAlpha, _targetFade, t);
 
             t += Time.deltaTime / _animationDuration;
             yield return null;
         }
 
-        _animatingGroup.alpha = 0;
+        _animatingGroup.alpha = _targetFade;
         TryStopPlayingAnimation();
     }
 }
