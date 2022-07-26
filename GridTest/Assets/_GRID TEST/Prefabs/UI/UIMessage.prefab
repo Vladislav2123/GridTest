@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _messageText: {fileID: 3397445193732660551}
-  _lifeDuration: 1.5
+  _lifeDuration: 1.6
 --- !u!114 &6425388553783651487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8f0329dc0e0e04887aff14cb93bdb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationDuration: 1.5
+  _duration: 1.5
+  _ease: 1
   _moveOffset: {x: 0, y: 200}
 --- !u!114 &3750569943841309345
 MonoBehaviour:
@@ -158,8 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7d294c606d1e347aa391521a919771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationDuration: 0.5
+  _duration: 0.5
+  _ease: 1
   _animatingGroup: {fileID: 1014257297617290354}
+  _targetFade: 0
 --- !u!1 &8496640352673364560
 GameObject:
   m_ObjectHideFlags: 0

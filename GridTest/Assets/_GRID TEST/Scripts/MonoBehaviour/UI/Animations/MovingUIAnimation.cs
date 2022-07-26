@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class MovingUIAnimation : UIAnimation
 {
@@ -7,25 +7,7 @@ public class MovingUIAnimation : UIAnimation
 
     public override void PlayAnimation()
     {
-        TryStopPlayingAnimation();
-        PlayingAnimation = StartCoroutine(MoveAnimation());
-    }
-
-    private IEnumerator MoveAnimation()
-    {
-        Vector2 originPosition = transform.position;
-        Vector2 targetPosition = originPosition + _moveOffset;
-        float t = 0;
-
-        while(t <= 1)
-        {
-            transform.position = Vector2.Lerp(originPosition, targetPosition, t);
-
-            t += Time.deltaTime / _animationDuration;
-            yield return null;
-        }
-
-        transform.position = targetPosition;
-        TryStopPlayingAnimation();
+        TryKillAndCreateNewSequence();
+        _playingSequence.Append(transform.DOMove(transform.position + (Vector3)_moveOffset, _duration).SetEase(_ease));
     }
 }

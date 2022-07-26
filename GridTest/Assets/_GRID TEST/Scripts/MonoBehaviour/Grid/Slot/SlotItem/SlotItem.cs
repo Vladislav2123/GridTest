@@ -8,6 +8,7 @@ public class SlotItem : MonoBehaviour, ISlotItem
 
     public Slot Slot {get; private set;}
     public bool IsTransiting => _transitionAnimation != null ? _transitionAnimation.IsPlaying : false;
+    //public bool IsTransiting => false;
 
     private void Awake()
     {
@@ -18,6 +19,11 @@ public class SlotItem : MonoBehaviour, ISlotItem
     private void Start()
     {
         _valueController.GenerateRandomValue();
+    }
+
+    private void Update()
+    {
+       // Debug.Log(_transitionAnimation.IsPlaying); 
     }
 
     public void SetSlot(Slot targetSlot)
@@ -31,7 +37,7 @@ public class SlotItem : MonoBehaviour, ISlotItem
        SetSlot(targetSlot);
        transform.SetParent(targetSlot.ItemContainer);
 
-       if(_transitionAnimation != null)  _transitionAnimation.PlayAnimation();
-       transform.localPosition = Vector3.zero;
+       if(_transitionAnimation != null) _transitionAnimation.PlayAnimation();
+       else transform.localPosition = Vector3.zero;
     }
 }
